@@ -1,0 +1,43 @@
+﻿@model Domain.Models.Poll
+
+@{
+    ViewData["Title"] = "Create Poll";
+}
+
+<h2>Create Poll</h2>
+
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success">@TempData["message"]</div>
+}
+
+<form asp-controller="Poll" asp-action="Create" method="post">
+    <div class="mb-3">
+        <label for="Title" class="form-label">Poll Title</label>
+        <input type="text" id="Title" name="Title" class="form-control" value="@Model?.Title" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="Option1Text" class="form-label">Option 1</label>
+        <input type="text" id="Option1Text" name="Option1Text" class="form-control" value="@Model?.Option1Text" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="Option2Text" class="form-label">Option 2</label>
+        <input type="text" id="Option2Text" name="Option2Text" class="form-control" value="@Model?.Option2Text" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="Option3Text" class="form-label">Option 3</label>
+        <input type="text" id="Option3Text" name="Option3Text" class="form-control" value="@Model?.Option3Text" required />
+    </div>
+
+    <div class="form-check">
+        <input type="checkbox" id="update" name="update" class="form-check-input" />
+        <label for="update" class="form-check-label">Update existing poll</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Save Poll</button>
+</form>
+
+<a asp-controller="Poll" asp-action="Index" class="btn btn-secondary mt-3">Back to Polls</a>

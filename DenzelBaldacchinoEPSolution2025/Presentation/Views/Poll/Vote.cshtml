@@ -1,0 +1,55 @@
+﻿@model Domain.Models.Poll
+
+@{
+    ViewData["Title"] = "Vote on Poll";
+}
+
+<div class="container my-5">
+    <div class="card shadow-lg rounded-3">
+        <div class="card-header text-center bg-primary text-white">
+            <h3>@Model.Title</h3>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Poll ID: @Model.PollId</h5>
+            <p><strong>Created At:</strong> @Model.CreatedAt.ToString("MMMM dd, yyyy")</p>
+
+            <form asp-controller="Poll" asp-action="Vote" asp-route-polID="@Model.PollId" method="post">
+                <div class="mb-3">
+                    <div class="d-flex align-items-center">
+                        <input type="radio" id="Option1" name="selectedOption" value="Option1" class="me-2" required />
+                        <label for="Option1">
+                            <strong>@Model.Option1Text</strong><br />
+                            <small>@Model.Option1VotesCount votes</small>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex align-items-center">
+                        <input type="radio" id="Option2" name="selectedOption" value="Option2" class="me-2" required />
+                        <label for="Option2">
+                            <strong>@Model.Option2Text</strong><br />
+                            <small>@Model.Option2VotesCount votes</small>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex align-items-center">
+                        <input type="radio" id="Option3" name="selectedOption" value="Option3" class="me-2" />
+                        <label for="Option3">
+                            <strong>@Model.Option3Text</strong><br />
+                            <small>@Model.Option3VotesCount votes</small>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Submit Vote</button>
+            </form>
+
+        </div>
+        <div class="card-footer text-center">
+            <a asp-controller="Poll" asp-action="Index" class="btn btn-secondary">Back to Polls</a>
+        </div>
+    </div>
+</div>

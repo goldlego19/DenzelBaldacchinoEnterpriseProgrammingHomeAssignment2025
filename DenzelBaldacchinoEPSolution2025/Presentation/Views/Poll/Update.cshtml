@@ -1,0 +1,35 @@
+﻿@model Domain.Models.Poll
+
+@{
+    ViewData["Title"] = "Update Poll";
+}
+
+<h2>Update Poll</h2>
+
+<form asp-controller="Poll" asp-action="Update" method="post">
+    <input type="hidden" asp-for="PollId" />
+
+    <div class="mb-3">
+        <label for="Title" class="form-label">Poll Title</label>
+        <input type="text" id="Title" name="Title" class="form-control" value="@Model.Title" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="Option1Text" class="form-label">Option 1</label>
+        <input type="text" id="Option1Text" name="Option1Text" class="form-control" value="@Model.Option1Text" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="Option2Text" class="form-label">Option 2</label>
+        <input type="text" id="Option2Text" name="Option2Text" class="form-control" value="@Model.Option2Text" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="Option3Text" class="form-label">Option 3 (Optional)</label>
+        <input type="text" id="Option3Text" name="Option3Text" class="form-control" value="@Model.Option3Text" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Poll</button>
+</form>
+
+<a asp-controller="Poll" asp-action="Index" class="btn btn-secondary mt-3">Back to Polls</a>
