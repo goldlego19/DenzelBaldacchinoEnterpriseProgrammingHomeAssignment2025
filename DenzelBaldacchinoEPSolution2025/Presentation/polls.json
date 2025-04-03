@@ -1,0 +1,46 @@
+[
+  {
+    "PollId": 1,
+    "Title": "sadad",
+    "Option1Text": "adsad",
+    "Option2Text": "asdasda",
+    "Option3Text": "dasda",
+    "Option1VotesCount": 0,
+    "Option2VotesCount": 0,
+    "Option3VotesCount": 0,
+    "CreatedAt": "2025-04-03T15:32:50.3886401+02:00"
+  },
+  {
+    "PollId": 2,
+    "Title": "asdadad",
+    "Option1Text": "dada",
+    "Option2Text": "dada",
+    "Option3Text": "dddd",
+    "Option1VotesCount": 0,
+    "Option2VotesCount": 1,
+    "Option3VotesCount": 0,
+    "CreatedAt": "2025-04-03T15:32:56.2633212+02:00"
+  },
+  {
+    "PollId": 3,
+    "Title": "ASas",
+    "Option1Text": "ahbsidabn",
+    "Option2Text": "ansldnao",
+    "Option3Text": "kasndlansd",
+    "Option1VotesCount": 0,
+    "Option2VotesCount": 0,
+    "Option3VotesCount": 0,
+    "CreatedAt": "2025-04-03T15:38:31.4579704+02:00"
+  },
+  {
+    "PollId": 4,
+    "Title": "fuif",
+    "Option1Text": "ouyhouig",
+    "Option2Text": "hvivib",
+    "Option3Text": "biovbo",
+    "Option1VotesCount": 0,
+    "Option2VotesCount": 0,
+    "Option3VotesCount": 0,
+    "CreatedAt": "2025-04-03T15:42:32.5757368+02:00"
+  }
+]

@@ -1,4 +1,5 @@
 ﻿using DataAccess.Repositories;
+using Domain.Interfaces;
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Models;
@@ -7,13 +8,25 @@ namespace Presentation.Controllers
 {
     public class PollController : Controller
     {
+        
         PollRepository _pollRepository;
-        public PollController(PollRepository pollRepository) { _pollRepository = pollRepository; }
+        IPollRepository _pollFileRepository;
+        private readonly bool _useFileStorage;
+        public PollController(PollRepository pollRepository, IPollRepository pollFileRepository, IConfiguration configuration)
+        {
+            _pollRepository = pollRepository;
+            _pollFileRepository = pollFileRepository;
+            _useFileStorage = configuration.GetValue<bool>("PollFileSetting");//Change This to work with DB or FIle
+        }
 
+        private IPollRepository GetPollRepository()
+        {
+            return _useFileStorage ? _pollFileRepository : _pollRepository;
+        }
 
         public IActionResult Index()
         {
-            List<Poll> polls = _pollRepository.GetPolls()
+            List<Poll> polls = GetPollRepository().GetPolls()
                 .OrderByDescending(p => p.CreatedAt) // Sorting by date in descending order
                 .ToList();
             return View(polls);
@@ -21,7 +34,7 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult Vote(int polID)
         {
-            Poll poll = _pollRepository.GetPolls().SingleOrDefault(p => p.PollId == polID);
+            Poll poll = GetPollRepository().GetPolls().SingleOrDefault(p => p.PollId == polID);
             if (poll ==null)
             {
                 return NotFound();
@@ -31,7 +44,7 @@ namespace Presentation.Controllers
         [HttpPost]
         public IActionResult Vote(int polID,string selectedOption)
         {
-            Poll poll = _pollRepository.GetPolls().SingleOrDefault(p => p.PollId == polID);
+            Poll poll = GetPollRepository().GetPolls().SingleOrDefault(p => p.PollId == polID);
             if (poll == null)
             {
                 return NotFound();
@@ -50,7 +63,7 @@ namespace Presentation.Controllers
                     break;
 
             }
-            _pollRepository.Vote(new List<Poll> { poll });
+            GetPollRepository().Vote(new List<Poll> { poll });
             TempData["message"] = "Your vote has been recorded!";
             return RedirectToAction("Index");
         }
@@ -70,49 +83,17 @@ namespace Presentation.Controllers
             {
                 if (update)
                 {
-                    _pollRepository.UpdatePolls(new List<Poll> { poll });
+                    GetPollRepository().UpdatePolls(new List<Poll> { poll });
                 }
                 else
                 {
-                    _pollRepository.CreatePolls(new List<Poll> { poll });
+                    GetPollRepository().CreatePolls(new List<Poll> { poll });
                 }
                 TempData["message"] = "Poll saved successfully";
 
             }
             return RedirectToAction("Index");
         }
-        [HttpGet]
-        public IActionResult Update(int id)
-        {
-
-            Poll poll = _pollRepository.GetPolls().SingleOrDefault(p => p.PollId == id);
-
-            if (poll == null)
-            {
-                return NotFound(); // Handle case where poll doesn't exist
-            }
-
-            return View(poll); // Return the view with the poll data
-        }
-        [HttpPost]
-        public IActionResult Update(int id,Poll updatedPoll)
-        {
-            if (ModelState.IsValid)
-            {
-                Poll pastPoll =_pollRepository.GetPolls().SingleOrDefault(pastPoll => pastPoll.PollId == id);
-                if(pastPoll == null)
-                {  return NotFound(); }
-
-                pastPoll.Title = updatedPoll.Title;
-                pastPoll.Option1Text = updatedPoll.Option1Text;
-                pastPoll.Option2Text = updatedPoll.Option2Text;
-                pastPoll.Option3Text = updatedPoll.Option3Text;
-
-                _pollRepository.UpdatePolls(new List<Poll> { pastPoll });
-                TempData["message"] = "Poll Updated Successfully";
-                return RedirectToAction("Index");
-            }
-            return View(updatedPoll);
-        }
+        
     }
 }

@@ -4,6 +4,7 @@ using DataAccess.DataContext;
 using DataAccess.Repositories;
 using Domain.Models;
 using Microsoft.Extensions.Options;
+using Domain.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,8 @@ builder.Services.AddDefaultIdentity<CustomUser>(options => options.SignIn.Requir
     .AddEntityFrameworkStores<PollDbContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<PollRepository>();
+builder.Services.AddScoped<IPollRepository, PollFileRepository>();
+
 
 
 
