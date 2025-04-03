@@ -33,11 +33,11 @@ namespace DataAccess.Repositories
             poll.CreatedAt = DateTime.Now;
             if (polls.Any())
             {
-                poll.PollId = polls.Any() ? polls.Max(p => p.PollId) + 1 : 1; // Set the next available PollId
+                poll.PollId = polls.Any() ? polls.Max(p => p.PollId) + 1 : 1; 
             }
             else
             {
-                poll.PollId = 1; // First poll, set PollId to 1
+                poll.PollId = 1; 
             }
             
             polls.Add(poll);
@@ -50,22 +50,22 @@ namespace DataAccess.Repositories
             // Load existing polls
             var existingPolls = LoadPolls().ToList();
 
-            // Get current time to set for all polls
+           
             var currentDateTime = DateTime.Now;
 
-            // Set PollId for each poll and CreatedAt time
+            
             foreach (var poll in polls)
             {
                 poll.CreatedAt = currentDateTime;
 
-                // Set PollId based on the existing polls
+                
                 if (existingPolls.Any())
                 {
-                    poll.PollId = existingPolls.Max(p => p.PollId) + 1; // Set the next available PollId
+                    poll.PollId = existingPolls.Max(p => p.PollId) + 1;
                 }
                 else
                 {
-                    poll.PollId = 1; // First poll, set PollId to 1
+                    poll.PollId = 1;
                 }
             }
 
@@ -110,6 +110,8 @@ namespace DataAccess.Repositories
                     existingPoll.Option1VotesCount = poll.Option1VotesCount;
                     existingPoll.Option2VotesCount = poll.Option2VotesCount;
                     existingPoll.Option3VotesCount = poll.Option3VotesCount;
+                    existingPoll.VotedUserIds = poll.VotedUserIds;
+
                 }
             }
             SavePolls(existingPolls);

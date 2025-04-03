@@ -1,46 +1,28 @@
 [
   {
     "PollId": 1,
-    "Title": "sadad",
-    "Option1Text": "adsad",
-    "Option2Text": "asdasda",
-    "Option3Text": "dasda",
-    "Option1VotesCount": 0,
-    "Option2VotesCount": 0,
-    "Option3VotesCount": 0,
-    "CreatedAt": "2025-04-03T15:32:50.3886401+02:00"
-  },
-  {
-    "PollId": 2,
-    "Title": "asdadad",
-    "Option1Text": "dada",
-    "Option2Text": "dada",
-    "Option3Text": "dddd",
+    "Title": "What is your Favorite Food?",
+    "Option1Text": "Ribs",
+    "Option2Text": "Chicken",
+    "Option3Text": "Fish",
     "Option1VotesCount": 0,
     "Option2VotesCount": 1,
     "Option3VotesCount": 0,
-    "CreatedAt": "2025-04-03T15:32:56.2633212+02:00"
+    "CreatedAt": "2025-04-03T21:21:56.7913299+02:00",
+    "VotedUserIds": [
+      "7fe6a221-9b8e-459b-b7e4-744dedf940a9"
+    ]
   },
   {
-    "PollId": 3,
-    "Title": "ASas",
-    "Option1Text": "ahbsidabn",
-    "Option2Text": "ansldnao",
-    "Option3Text": "kasndlansd",
+    "PollId": 2,
+    "Title": "asdas",
+    "Option1Text": "asda",
+    "Option2Text": "asdad",
+    "Option3Text": "asdad",
     "Option1VotesCount": 0,
     "Option2VotesCount": 0,
     "Option3VotesCount": 0,
-    "CreatedAt": "2025-04-03T15:38:31.4579704+02:00"
-  },
-  {
-    "PollId": 4,
-    "Title": "fuif",
-    "Option1Text": "ouyhouig",
-    "Option2Text": "hvivib",
-    "Option3Text": "biovbo",
-    "Option1VotesCount": 0,
-    "Option2VotesCount": 0,
-    "Option3VotesCount": 0,
-    "CreatedAt": "2025-04-03T15:42:32.5757368+02:00"
+    "CreatedAt": "2025-04-03T21:50:36.3887135+02:00",
+    "VotedUserIds": []
   }
 ]

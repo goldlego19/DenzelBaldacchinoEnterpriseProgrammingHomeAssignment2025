@@ -1,17 +1,22 @@
 ﻿using DataAccess.Repositories;
 using Domain.Interfaces;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.ActionFilters;
 using Presentation.Models;
+using System.Security.Claims;
+
 
 namespace Presentation.Controllers
 {
+   
     public class PollController : Controller
     {
         
         PollRepository _pollRepository;
         IPollRepository _pollFileRepository;
-        private readonly bool _useFileStorage;
+        public readonly bool _useFileStorage;
         public PollController(PollRepository pollRepository, IPollRepository pollFileRepository, IConfiguration configuration)
         {
             _pollRepository = pollRepository;
@@ -31,6 +36,8 @@ namespace Presentation.Controllers
                 .ToList();
             return View(polls);
         }
+        [CheckUserVoted]
+        [Authorize]
         [HttpGet]
         public IActionResult Vote(int polID)
         {
@@ -45,9 +52,18 @@ namespace Presentation.Controllers
         public IActionResult Vote(int polID,string selectedOption)
         {
             Poll poll = GetPollRepository().GetPolls().SingleOrDefault(p => p.PollId == polID);
+            var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userID == null) return Unauthorized();
+
             if (poll == null)
             {
                 return NotFound();
+            }
+
+            if (poll.VotedUserIds.Contains(userID))
+            {
+                TempData["message"] = "You have already voted on this poll";
+                return RedirectToAction("Index");
             }
 
             switch (selectedOption)
@@ -63,6 +79,8 @@ namespace Presentation.Controllers
                     break;
 
             }
+            poll.VotedUserIds.Add(userID);
+
             GetPollRepository().Vote(new List<Poll> { poll });
             TempData["message"] = "Your vote has been recorded!";
             return RedirectToAction("Index");

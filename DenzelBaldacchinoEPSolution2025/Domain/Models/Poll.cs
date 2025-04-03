@@ -22,5 +22,7 @@ namespace Domain.Models
         public int Option2VotesCount { get; set; }
         public int Option3VotesCount { get; set; }
         public DateTime CreatedAt { get; set; }
+
+        public List<string> VotedUserIds { get; set; } = new List<string>();
     }
 }
